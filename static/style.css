@@ -1,0 +1,70 @@
+:root {
+    --lever-border: #8ba6a9;
+    --lever-handle: #1c1b22;
+    --lever-on: #4ca951;
+    --lever-off: #f05d5e;
+
+    color-scheme: dark light;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#checkbox {
+    display: none;
+}
+
+.lever {
+    background-color: var(--lever-off);
+    cursor: pointer;
+
+    width: 10rem;
+    height: 20rem;
+    border: 0.75rem solid var(--lever-border);
+    border-radius: 0.5rem;
+    box-shadow: inset 0rem 0rem 0.5rem 0.25rem rgba(0, 0, 0, 0.5);
+    position: relative;
+
+    transition: background-color 500ms;
+}
+
+.shaft {
+    position: absolute;
+    transform: translateY(2rem);
+    left: calc(50% - 0.625rem);
+    right: calc(50% - 0.625rem);
+    background-color: var(--lever-border);
+    height: 8rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0rem 0rem 0.5rem 0.25rem rgba(0, 0, 0, 0.5);
+
+    transition: transform 500ms;
+}
+
+.handle {
+    position: absolute;
+    left: -1rem;
+    right: -1rem;
+    background-color: var(--lever-handle);
+    height: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0rem 0rem 0.5rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+#checkbox:checked ~ .lever {
+    background-color: var(--lever-on);
+}
+
+#checkbox:checked ~ .lever .shaft {
+    transform: translateY(10rem) scaleY(-100%);
+}
