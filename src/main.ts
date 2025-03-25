@@ -26,6 +26,14 @@ function saveFlip(lastFlip: LastFlip) {
     localStorage.setItem("last_flip", JSON.stringify(lastFlip));
 }
 
+function renderDefault(
+    { takenAt, taken, lever }: RenderOptions,
+) {
+    takenAt.textContent = "Never";
+    taken.checked = false;
+    lever.classList.add("lever-off");
+}
+
 type RenderOptions = {
     takenAt: HTMLParagraphElement;
     taken: HTMLInputElement;
@@ -74,6 +82,7 @@ function main() {
 
     const last = lastFlip();
     if (!last) {
+        renderDefault({ takenAt, taken, lever });
         return;
     }
     render(last, { takenAt, taken, lever });
