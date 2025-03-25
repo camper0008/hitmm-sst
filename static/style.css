@@ -12,6 +12,10 @@ body {
     font-family: sans-serif;
 }
 
+h1 {
+    margin-bottom: 0;
+}
+
 .container {
     min-height: 100vh;
     display: flex;
@@ -39,9 +43,10 @@ body {
 
 .shaft {
     transform-origin: bottom center;
-    transform: translateY(2rem) scaleY(0%);
+    transform: scaleY(0%);
 
     position: absolute;
+    top: 2rem;
     left: calc(50% - 0.625rem);
     right: calc(50% - 0.625rem);
     background-color: var(--lever-border);
@@ -67,7 +72,7 @@ body {
 }
 
 .lever-on .shaft {
-    transform: translateY(2rem) scaleY(-100%);
+    transform: scaleY(-100%);
 }
 
 .lever-off {
@@ -75,5 +80,5 @@ body {
 }
 
 .lever-off .shaft {
-    transform: translateY(2rem);
+    transform: scaleY(100%);
 }

@@ -12,8 +12,8 @@ function lastFlip(): LastFlip | null {
     const before = new Date(lastFlip.at);
     const now = new Date();
 
-    console.log(now.getDate() !== before.getDate());
     if (
+        now.getFullYear() !== before.getFullYear() ||
         now.getMonth() !== before.getMonth() ||
         now.getDate() !== before.getDate()
     ) {
@@ -29,7 +29,7 @@ function saveFlip(lastFlip: LastFlip) {
 function renderDefault(
     { takenAt, taken, lever }: RenderOptions,
 ) {
-    takenAt.textContent = "Never";
+    takenAt.textContent = "not yet";
     taken.checked = false;
     lever.classList.add("lever-off");
 }
@@ -41,25 +41,27 @@ type RenderOptions = {
 };
 
 function render(
-    storage: LastFlip,
+    lastFlip: LastFlip,
     { takenAt, taken, lever }: RenderOptions,
 ) {
-    takenAt.textContent = format(storage.at);
-    taken.checked = storage.taken;
+    takenAt.textContent = format(lastFlip);
+    taken.checked = lastFlip.taken;
     lever.classList.remove("lever-on", "lever-off");
-    lever.classList.add(storage.taken ? "lever-on" : "lever-off");
+    lever.classList.add(lastFlip.taken ? "lever-on" : "lever-off");
 }
 
-function format(input: string) {
+function format({ taken, at }: LastFlip) {
     function pad(num: number) {
         const val = num.toString();
         return val.length < 2 ? `0${val}` : val;
     }
-    const date = new Date(input);
+    const date = new Date(at);
 
-    return `${pad(date.getDate())}/${pad(date.getMonth() + 1)} ${
-        pad(date.getHours())
-    }:${pad(date.getMinutes())}`;
+    return `(${taken ? "yes," : "not today. last taken"} at ${
+        pad(date.getDate())
+    }/${pad(date.getMonth() + 1)} ${pad(date.getHours())}:${
+        pad(date.getMinutes())
+    })`;
 }
 
 function main() {
